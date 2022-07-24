@@ -169,3 +169,106 @@ plt.show()
 
 ![image](https://user-images.githubusercontent.com/103634806/180629074-3fb12216-f9a3-4365-bd64-f1a8df65fe79.png)
 
+```
+import matplotlib.pyplot as plt
+
+plt.clf()
+# Pivot data with pivot_table
+df_piv = df.pivot_table(index='is_churn', 
+                        columns='Product',
+                        values='Customer_ID', 
+                        aggfunc='count', 
+                        fill_value=0)
+# Get Proportion Churn by Product
+plot_product = df_piv.count().sort_values(ascending=False).head(5).index
+# Pie chart plot
+df_piv = df_piv.reindex(columns=plot_product)
+df_piv.plot.pie(subplots=True,
+                figsize=(10, 7),
+                layout=(-1, 2),
+                autopct='%1.0f%%',
+                title='Proportion Churn by Product\n')
+plt.tight_layout()
+plt.show()
+```
+
+### Result
+
+![image](https://user-images.githubusercontent.com/103634806/180629251-d804047c-e53f-4188-94fe-c53bf919c3f3.png)
+
+
+## Count Transaction Categorize Distribution
+
+```
+import matplotlib.pyplot as plt
+
+plt.clf()
+# Categorize transaction
+def func(row):
+    if row['Count_Transaction'] == 1:
+        val = '1'
+    elif (row['Count_Transaction'] > 1 and row['Count_Transaction'] <= 3):
+        val ='2 - 3'
+    elif (row['Count_Transaction'] >3 and row['Count_Transaction'] <=6):
+        val ='4 - 6'
+    elif (row['Count_Transaction'] > 6 and row['Count_Transaction'] <= 10):
+        val ='7 - 10'
+    else:
+        val ='> 10'
+    return val
+# Add new column
+df['Count_Transaction_Group'] = df.apply(func, axis=1)
+
+df_year = df.groupby(['Count_Transaction_Group'])['Customer_ID'].count()
+df_year.plot(x='Count_Transaction_Group', y='Customer_ID', color='springgreen', kind='bar', title='Customer Distribution by Count Transaction Group')
+plt.xlabel('Count Transaction Group')
+plt.ylabel('Num of Customer')
+plt.tight_layout()
+plt.show()
+```
+
+### Result
+
+![image](https://user-images.githubusercontent.com/103634806/180629302-0198373c-b33b-477b-9f9b-0ac9118e35e7.png)
+
+## Transaction Amount Average Categorize Distribution
+
+```
+import matplotlib.pyplot as plt
+
+plt.clf()
+# Transaction Amount Average Distribution
+def f(row):
+    if (row['Average_Transaction_Amount'] >= 100000 and row['Average_Transaction_Amount'] <=250000):
+        val ='100.000 - 250.000'
+    elif (row['Average_Transaction_Amount']> 250000 and row['Average_Transaction_Amount'] <= 500000):
+        val ='>250.000 - 500.000'
+    elif (row['Average_Transaction_Amount'] >500000 and row['Average_Transaction_Amount'] <= 750000):
+        val = '>500.000 - 750.000'
+    elif (row['Average_Transaction_Amount']>750000 and row['Average_Transaction_Amount'] <= 1000000):
+        val = '>750.000 - 1.000.000'
+    elif (row['Average_Transaction_Amount']>1000000 and row['Average_Transaction_Amount'] <= 2500000):
+        val = '>1.000.000 - 2.500.000'
+    elif (row['Average_Transaction_Amount']> 2500000 and row['Average_Transaction_Amount'] <= 5000000):
+        val = '>2.500.000 - 5.000.000'
+    elif (row['Average_Transaction_Amount']>5000000 and row['Average_Transaction_Amount'] <=10000000):
+        val = '>5.000.000 - 10.000.000'
+    else:
+        val = '>10.000.000'
+    return val
+# Add new column
+df['Average_Transaction_Amount_Group'] = df.apply(f, axis=1)
+
+df_year = df.groupby(['Average_Transaction_Amount_Group'])['Customer_ID'].count()
+df_year.plot(x='Average_Transaction_Amount_Group', y='Customer_ID',color='springgreen', kind='bar', title='Customer Distribution by Average Transaction Amount Group')
+plt.xlabel('Average Transaction Amount Group')
+plt.ylabel('Num of Customer')
+plt.tight_layout()
+plt.show()
+```
+
+### Result
+
+![image](https://user-images.githubusercontent.com/103634806/180629401-566dd393-5032-43b5-87c0-1ff462bb7cb1.png)
+
+
