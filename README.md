@@ -1,4 +1,4 @@
-# Business Desicion Research
+# Business Decision Research
 
 ## Overview
 DQLab sports center is a shop that sells various sports needs such as jackets, clothes, bags, and shoes. This shop started its business in 2013, so it has had regular customers for a long time and is still trying to get new customers until now.
