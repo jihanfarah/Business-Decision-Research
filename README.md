@@ -127,4 +127,45 @@ plt.show()
 
 We can see the number of customers significantly increases from 2016 to 2018 around 80.67%, while the number of customers decreases from 2017 to 2018 by around 4.71%.
 
+## Transaction by Year
+
+```
+import matplotlib.pyplot as plt
+
+plt.clf()
+df_year = df.groupby(['Year_First_Transaction'])['Count_Transaction'].sum()
+df_year.plot(x='Year_First_Transaction', y='Count_Transaction', color='springgreen', kind='bar', title='Graph of Transaction Customer')
+plt.xlabel('Year First Transaction')
+plt.ylabel('Num of Transaction')
+plt.tight_layout()
+plt.show()
+
+print(df_year)
+```
+
+### Result
+
+![image](https://user-images.githubusercontent.com/103634806/180629043-0c06ead5-d5b3-4bf6-8787-083b8669012a.png)
+
+We can see the highest number of transaction happens in 2015 and 2017, and the number of transaction significantly increases from 2014 to 2015. Then, the number of transaction slightly decrease from  2017 to 2018.
+
+## Average Transaction Amount by Year
+
+```
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.clf()
+ax = sns.pointplot(data = df.groupby(['Product', 'Year_First_Transaction']).mean().reset_index(), 
+              x='Year_First_Transaction', 
+              y='Average_Transaction_Amount', 
+              hue='Product')
+plt.xlabel('Year First Transaction')
+plt.ylabel('Average Transaction Amount')
+plt.tight_layout()
+plt.show()
+```
+### Result
+
+![image](https://user-images.githubusercontent.com/103634806/180629074-3fb12216-f9a3-4365-bd64-f1a8df65fe79.png)
 
