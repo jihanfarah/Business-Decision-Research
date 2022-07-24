@@ -103,4 +103,28 @@ print(df.head())
 
 ![image](https://user-images.githubusercontent.com/103634806/180354406-64963c87-83f5-4bef-bf2a-3c7e89fc965a.png)
 
+## Customer Acquisition by Year
+
+```
+import matplotlib.pyplot as plt
+
+# Year first transaction column
+df['Year_First_Transaction'] = df['First_Transaction'].dt.year
+# Year first transaction column
+df['Year_Last_Transaction'] = df['Last_Transaction'].dt.year
+
+df_year = df.groupby(['Year_First_Transaction'])['Customer_ID'].count()
+df_year.plot(x='Year_First_Transaction', y='Customer_ID', color='springgreen', kind='bar', title='Graph of Customer Acquisition')
+plt.xlabel('Year First Transaction')
+plt.ylabel('Num of Customer')
+plt.tight_layout()
+plt.show()
+```
+
+### Result
+
+![image](https://user-images.githubusercontent.com/103634806/180628941-9c9bcb0c-b1e7-4a26-aab6-5d367c9408d1.png)
+
+We can see the number of customers significantly increases from 2016 to 2018 around 80.67%, while the number of customers decreases from 2017 to 2018 by around 4.71%.
+
 
