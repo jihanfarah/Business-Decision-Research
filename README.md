@@ -76,7 +76,7 @@ print(df.info())
 
 ## Churn Customers
 
-To determine churn customers according to the given definition, we need to look for the most recent transaction that has been made. Based on the information, the customers churn if they do not have any transactions at the store after six months since their last transactions. First, we need to check when was the latest transaction.
+To determine churn customers according to the given definition, we need to look for the most recent transaction that has been made. Based on the information, the customers churn if they do not have any transactions at the store after six months since the last available data update. First, we need to check when was the latest transaction.
 
 
 ```
@@ -271,5 +271,77 @@ plt.show()
 
 ![image](https://user-images.githubusercontent.com/103634806/180630080-43d29229-256c-4762-8dda-681835a32a25.png)
 
+## Train, predict, and evaluate
+We will use `Average_Transaction_Amount, Count_Transaction,` and `Year_Diff` as feature columns. Then, we use `is_churn` as target column. Before we train the data, we need to change `is_churn` as 'int' format and we use Logistic Regression. Last, we evaluate model with confusion matrix.
 
+```
+df['Year_Diff']=df['Year_Last_Transaction']-df['Year_First_Transaction']
+feature_columns = ['Average_Transaction_Amount', 'Count_Transaction', 'Year_Diff']
+
+X = df[feature_columns] 
+y = df['is_churn'] 
+y=y.astype('int')
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+
+# Model logreg initiation
+logreg = LogisticRegression()
+
+# fit the model with data
+logreg.fit(X_train, y_train)
+
+# Predict model
+y_pred = logreg.predict(X_test)
+
+# Evaluate model with confusion matrix
+cnf_matrix = confusion_matrix(y_test, y_pred)
+print('Confusion Matrix:\n', cnf_matrix)
+
+# import required modules
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.clf()
+# name  of classes
+class_names = [0, 1] 
+fig, ax = plt.subplots()
+
+tick_marks = np.arange(len(class_names))
+plt.xticks(tick_marks, class_names)
+plt.yticks(tick_marks, class_names)
+
+# create heatmap
+sns.heatmap(pd.DataFrame(cnf_matrix), annot=True, cmap='YlGnBu', fmt='g')
+ax.xaxis.set_label_position('top')
+plt.title('Confusion matrix', y=1.1)
+plt.ylabel('Actual')
+plt.xlabel('Predicted')
+plt.tight_layout()
+plt.show()
+```
+
+### Result
+![image](https://user-images.githubusercontent.com/103634806/180636970-4b4f54e3-75c3-4bce-8578-fca8a971ce54.png)
+
+![image](https://user-images.githubusercontent.com/103634806/180636972-68644a70-b807-4677-93ac-96876cbfa997.png)
+
+## Accuracy, Precision, and Recall
+
+
+```
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+
+#Find Accuracy, Precision, dan Recall
+print('Accuracy :', accuracy_score(y_test,y_pred))
+print('Precision:', precision_score(y_test, y_pred, average='micro'))
+print('Recall   :', recall_score(y_test, y_pred, average='micro'))
+```
+
+### Result 
+![image](https://user-images.githubusercontent.com/103634806/180636991-f8377a22-d7e3-4aad-aed9-ae852d7b1421.png)
 
