@@ -240,21 +240,21 @@ plt.clf()
 # Transaction Amount Average Distribution
 def f(row):
     if (row['Average_Transaction_Amount'] >= 100000 and row['Average_Transaction_Amount'] <=250000):
-        val ='100.000 - 250.000'
+        val ='1. 100.000 - 250.000'
     elif (row['Average_Transaction_Amount']> 250000 and row['Average_Transaction_Amount'] <= 500000):
-        val ='>250.000 - 500.000'
+        val ='2. >250.000 - 500.000'
     elif (row['Average_Transaction_Amount'] >500000 and row['Average_Transaction_Amount'] <= 750000):
-        val = '>500.000 - 750.000'
+        val = '3. >500.000 - 750.000'
     elif (row['Average_Transaction_Amount']>750000 and row['Average_Transaction_Amount'] <= 1000000):
-        val = '>750.000 - 1.000.000'
+        val = '4. >750.000 - 1.000.000'
     elif (row['Average_Transaction_Amount']>1000000 and row['Average_Transaction_Amount'] <= 2500000):
-        val = '>1.000.000 - 2.500.000'
+        val = '5. >1.000.000 - 2.500.000'
     elif (row['Average_Transaction_Amount']> 2500000 and row['Average_Transaction_Amount'] <= 5000000):
-        val = '>2.500.000 - 5.000.000'
+        val = '6. >2.500.000 - 5.000.000'
     elif (row['Average_Transaction_Amount']>5000000 and row['Average_Transaction_Amount'] <=10000000):
-        val = '>5.000.000 - 10.000.000'
+        val = '7. >5.000.000 - 10.000.000'
     else:
-        val = '>10.000.000'
+        val = '8. >10.000.000'
     return val
 # Add new column
 df['Average_Transaction_Amount_Group'] = df.apply(f, axis=1)
@@ -269,6 +269,7 @@ plt.show()
 
 ### Result
 
-![image](https://user-images.githubusercontent.com/103634806/180629401-566dd393-5032-43b5-87c0-1ff462bb7cb1.png)
+![image](https://user-images.githubusercontent.com/103634806/180630080-43d29229-256c-4762-8dda-681835a32a25.png)
+
 
 
