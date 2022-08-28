@@ -88,7 +88,7 @@ print(max(df['Last_Transaction']))
 
 ![image](https://user-images.githubusercontent.com/103634806/180353796-1e86ee7b-f44f-48ae-bfc3-606df20a87c5.png)
 
-Because the latest transaction is on Feb 1st, 2019, we need to subtract six months to find the limit of the transaction's date. We get that the limit ish on Aug 1st, 2018. Then, we need to classify which customers are churn statuses and which are not using boolean and add it into a new data column.
+Because the latest transaction is on Feb 1st, 2019, we need to subtract six months to find the limit of the transaction's date. We get that the limit is on Aug 1st, 2018. Then, we need to classify which customers are churn statuses and which are not using boolean and add it into a new data column.
 
 ```
 # Classifying the churn customers using boolean
