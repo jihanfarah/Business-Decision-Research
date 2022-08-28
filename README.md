@@ -169,6 +169,8 @@ plt.show()
 
 ![image](https://user-images.githubusercontent.com/103634806/180629074-3fb12216-f9a3-4365-bd64-f1a8df65fe79.png)
 
+## Proportion of Churned Customers for Each Product
+
 ```
 import matplotlib.pyplot as plt
 
